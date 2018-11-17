@@ -2,15 +2,19 @@
 
 ## 项目初始化
 
-使用 create-react-app 初始化项目
-
-### 安装依赖与配置
-
 项目使用 react-create-app 构建
 
-#### redux
+### redux
 
 react 项目中状态管理必备
+
+#### redux-thunk
+
+让 store 有能力接收函数，用来做异步数据获取与复杂逻辑
+
+#### react-redux
+
+方便使用 redux
 
 #### react-router-dom
 

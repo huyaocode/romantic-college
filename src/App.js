@@ -1,28 +1,23 @@
-import React, { Component } from 'react';
-import axios from 'axios'
-import { Button } from 'antd-mobile';
-
+import React, { Component } from 'react'
+import { Provider } from 'react-redux'
+import { BrowserRouter, Route } from 'react-router-dom'
+import store from './store'
+import Login from './pages/Login'
+import Register from './pages/Register'
 
 class App extends Component {
-  componentDidMount() {
-    axios.get('/data').then(res => {
-      console.log(res)
-    }).catch(e => {
-      console.log(e)
-    })
-  }
   render() {
     return (
-      <div className="App">
-        hellow 
-        <Button>asdff</Button>
-        <div className='test'>
-        asdfdsaf
-        </div>
-      </div>
-    );
+      <Provider store={store}>
+        <BrowserRouter>
+          <div>
+            <Route path="/login" exact component={Login} />
+            <Route path="/register" exact component={Register} />
+          </div>
+        </BrowserRouter>
+      </Provider>
+    )
   }
-  
 }
 
-export default App;
+export default App
