@@ -20,7 +20,12 @@ react 项目中状态管理必备
 
 路由处理
 
-#### axios
+#### immutable.js
+
+保证不直接修改 state
+安装 immutable 和 redux-immutable
+
+### axios
 
 项目使用 axios 发送 Ajax 请求
 
@@ -30,17 +35,17 @@ react 项目中状态管理必备
 
 ##### 配置拦截器
 
-#### react-fastclick
+### react-fastclick
 
 解决移动端 300ms 延迟问题
 
-#### antd-moble
+### antd-moble
 
 使用 antd 的 UI 库，快速开发，专注业务
 
 配置按需加载 [在 create-react-app 中使用 antd-mobile](https://mobile.ant.design/docs/react/use-with-create-react-app-cn)
 
-#### 手机显示配适
+### 手机显示配适
 
 阻止用户手滑放大或缩小页面，需要在 public/index.html 中添加修改 meta 元素。
 
@@ -49,11 +54,17 @@ react 项目中状态管理必备
 
 ```
 
-#### CSS 的处理
+### CSS 的处理
 
 ```
 npm install --save-dev babel-plugin-import less less-loader style-loader css-loader
 ```
+
+### 其他库
+
+#### utility
+用于加密密码
+
 
 ## 项目后台
 
