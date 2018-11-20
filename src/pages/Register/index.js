@@ -115,8 +115,6 @@ const mapStateToProps = state => {
     ownPassword: register.get('ownPassword'),
     repeatePassword: register.get('repeatePassword'),
     sexType: register.get('sex'),
-    errType: register.get('errType'),
-    errMsg: register.get('errMsg'),
     redicrectTo: register.get('redicrectTo')
   }
 }

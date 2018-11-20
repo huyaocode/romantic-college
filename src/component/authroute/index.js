@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom'
  */
 
 //公开的页面
-const publicList = ['/login', 'register']
+const publicList = ['/login', '/register']
 
 class Auth extends Component {
   componentDidMount() {
@@ -17,7 +17,7 @@ class Auth extends Component {
       return null
     }
     //获取用户信息
-    axios.get('/user/info').then(res => {
+    axios.get('/user/hascookie').then(res => {
       if (res.status === 200) {
         if (res.data.code === 0) {
           //有登陆信息

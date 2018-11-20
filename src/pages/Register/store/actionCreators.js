@@ -44,7 +44,7 @@ export const regist = (
           dispath(registSucc(res.data.infos))
           Toast.success('注册成功')
         } else {
-          Toast.fail(res.data.errMsg)
+          Toast.fail(res.data.msg)
         }
       })
       .catch(err => {

@@ -17,7 +17,6 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <AuthRouter></AuthRouter>
-            
             <Route path="/boss" exact component={Boss} />
             <Route path="/login" exact component={Login} />
             <Route path="/register" exact component={Register} />
