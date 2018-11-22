@@ -5,6 +5,7 @@ import store from './store'
 import AuthRouter from './component/authroute'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import UserInfo from './pages/UserInfo'
 
 function Boss () {
   return <div>Boss</div>
@@ -17,6 +18,7 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <AuthRouter></AuthRouter>
+            <Route path="/info" exact component={UserInfo} />
             <Route path="/boss" exact component={Boss} />
             <Route path="/login" exact component={Login} />
             <Route path="/register" exact component={Register} />

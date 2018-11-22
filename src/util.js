@@ -1,11 +1,10 @@
 import utility from 'utility'
 
 export function getRedictPath(infos) {
-  let url = infos.sex === 'boy' ? '/boy': '/girl'
   if(! infos.major){
-    url += 'info'
+    return 'info'
   }
-  return url;
+  return null;
 }
 
 export function md5encryption(psw){

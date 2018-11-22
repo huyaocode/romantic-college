@@ -16,7 +16,7 @@ class Auth extends Component {
     if (publicList.indexOf(pathname) > -1) {
       return null
     }
-    //获取用户信息
+    //获取用户是否已经登陆信息
     axios.get('/user/hascookie').then(res => {
       if (res.status === 200) {
         if (res.data.code === 0) {

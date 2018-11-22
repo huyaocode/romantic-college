@@ -76,4 +76,12 @@ Router.post('/register', function(req, res) {
   })
 })
 
+/**
+ * 用户信息页面列表信息
+ */
+// Router.get('/features', function(req, res) {
+
+// })
+
+
 module.exports = Router

@@ -6,6 +6,7 @@
     "antd-mobile": "^2.2.6",
     "axios": "^0.18.0",
     "immutable": "^4.0.0-rc.12",
+    "rc-form": "^2.2.6",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-fastclick": "^3.0.2",
