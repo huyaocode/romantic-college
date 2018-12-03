@@ -3,7 +3,7 @@ const Router = express.Router()
 const model = require('./model')
 const User = model.getModel('user')
 
-const _filter = {user_paw: 0, __v: 0, _id:0}
+const _filter = { user_paw: 0, __v: 0, _id: 0 }
 
 Router.get('/list', function(req, res) {
   User.find({}, function(err, doc) {
@@ -33,7 +33,6 @@ Router.get('/hascookie', function(req, res) {
 Router.post('/login', function(req, res) {
   const { deanAccout, ownPsw } = req.body
   User.findOne({ dean_accunt: deanAccout }, function(err, doc) {
-    console.log(doc)
     if (!doc) {
       return res.json({ code: 1, msg: '账号不存在，请注册' })
     }
@@ -42,7 +41,8 @@ Router.post('/login', function(req, res) {
     }
     //设置cookie
     res.cookie('userid', doc._id)
-    return res.json({ code: 0, sex: doc.sex })
+
+    return res.json({ code: 0, sex: doc.sex, needFillInfo: doc.major ? false: true })
   })
 })
 
@@ -77,11 +77,72 @@ Router.post('/register', function(req, res) {
 })
 
 /**
- * 用户信息页面列表信息
+ *  获取用户信息
  */
-// Router.get('/features', function(req, res) {
+Router.get('/infos', function(req, res) {
+  const { deanAccount } = req.query
+  if (deanAccount) {
+    User.findOne({ dean_accunt: deanAccount }, _filter, function(err, doc) {
+      //设置cookie
+      console.log('获取用户信息  userid', doc._id, doc)
+      return res.json({ code: 0, data: doc })
+    })
+  } else {
+    return res.json({ code: 1, msg: '请get deanAccount' })
+  }
+})
 
-// })
+/**
+ * 设置用户信息
+ */
+Router.post('/infos', function(req, res) {
+  const { userid } = req.cookies
+  let {
+    deanAccount,
+    username,
+    entranceTime,
+    major,
+    hometown,
+    signature
+  } = req.body
+  if(entranceTime) {
+    entranceTime = entranceTime[0]
+  }
+  if(major) {
+    major = major[0]
+  }
 
+  console.log('come',req.body)
+  User.findOne({ dean_accunt: deanAccount }, (err, doc) => {
+    if(err) {
+      console.log('更新信息出错', err)
+    }
+    console.log('find', doc)
+    if (doc._id == userid) {
+      User.update(
+        { dean_accunt: deanAccount },
+        {
+          user_name: username,
+          entranceTime,
+          major,
+          hometown,
+          signature
+        },
+        function(e, doc) {
+          console.log(e, doc)
+          if (e) {
+            return res.json({ code: 1, msg: '后端出错' })
+          } else {
+            console.log('更新信息成功', doc)
+            return res.json({ code: 0 })
+          }
+        }
+      )
+    } else {
+      console.log(doc._id , userid, '没有cookie的操作')
+      return res.json({ code: 1, msg: '没有cookie的操作' })
+    }
+  })
+})
 
 module.exports = Router

@@ -19,7 +19,7 @@ export default (state = defaultState, action) => {
     case acType.REGISTE_ACCOUNT_SUCC: //注册回调
       return state.merge({
         isAuth: true,
-        redicrectTo: getRedictPath(action.payload)
+        redicrectTo: getRedictPath('register', action.payload)
       })
     default:
       return state

@@ -12,21 +12,23 @@ import {
   Picker,
   ImagePicker,
   TextareaItem,
-  // Flex,
   Icon
 } from 'antd-mobile'
 
 class UserInfo extends Component {
+  componentDidMount() {
+    this.props.getUserInfo(this.props.deanAccount)
+  }
   render() {
-    const { handleFromChange } = this.props
+    const { handleFromChange, updateUserInfo } = this.props
     const { getFieldProps } = this.props.form
-    const entranceTime = [
+    const entranceTimeOptions = [
       { value: '2018', label: '2018' },
       { value: '2017', label: '2017' },
       { value: '2016', label: '2016' },
       { value: '2015', label: '2015' }
     ]
-    const academy = [
+    const majorOptions = [
       { value: '1', label: '计算机科学与技术学院' },
       { value: '2', label: '材料科学与工程学院' },
       { value: '3', label: '外国语学院' },
@@ -45,6 +47,24 @@ class UserInfo extends Component {
       { value: '16', label: '应用技术学院' }
     ]
 
+    const {
+      username,
+      deanAccount,
+      sex,
+      entranceTime,
+      major,
+      hometown,
+      signature
+    } = this.props
+    let jsEntranceTime = null
+    let jsmajor = null
+    if ( entranceTime) {
+      jsEntranceTime = entranceTime.toJS()
+    }
+    if (major) {
+      jsmajor = major.toJS()
+    }
+    console.log('jsmajor',jsmajor, major)
     return (
       <div>
         <NavBar
@@ -58,74 +78,108 @@ class UserInfo extends Component {
         <WhiteSpace size="xl" />
         <WingBlank>
           <List>
-            {/* <Flex justify="between">
-              <div style={{ height: '30px' }}>修改头像</div>
-              
-            </Flex> */}
             <ImagePicker />
             <InputItem
-              // value={username}
+              value={username}
               onChange={v => handleFromChange('username', v)}
             >
               昵称
             </InputItem>
-            <InputItem
-              // value={deanAccount}
-              disabled
-            >
+            <InputItem value={deanAccount} disabled>
               学号
             </InputItem>
-            <InputItem
-              // value={deanAccount}
-              disabled
-            >
+            <InputItem value={sex === 'boy' ? '男' : '女'} disabled>
               性别
             </InputItem>
             <Picker
-              data={entranceTime}
+              data={entranceTimeOptions}
+              value={jsEntranceTime}
               cols={1}
-              {...getFieldProps('entranceTime')}
+              {...getFieldProps('entranceTime', {
+                initialValue: jsEntranceTime
+              })}
+              onChange={v => handleFromChange('entranceTime', v)}
               className="forss"
             >
               <List.Item arrow="horizontal">入学年份</List.Item>
             </Picker>
             <Picker
-              data={academy}
+              data={majorOptions}
               cols={1}
-              {...getFieldProps('academy')}
+              {...getFieldProps('major', { initialValue: jsmajor })}
+              onChange={v => handleFromChange('major', v)}
               className="forss"
             >
               <List.Item arrow="horizontal">学院</List.Item>
             </Picker>
             <InputItem
-              // value={username}
+              value={hometown}
               onChange={v => handleFromChange('hometown', v)}
             >
               家乡
             </InputItem>
 
             <TextareaItem
+              value={signature}
               title="个性签名"
               placeholder="介绍介绍你自己吧"
               data-seed="logId"
               autoHeight
+              onChange={v => handleFromChange('signature', v)}
               rows={3}
             />
           </List>
           <WhiteSpace size="xl" />
-          <Button>提交修改</Button>
+          <Button
+            onClick={() => updateUserInfo(
+              deanAccount,
+              username,
+              jsEntranceTime,
+              jsmajor,
+              hometown,
+              signature
+            )}
+          >
+            提交修改
+          </Button>
         </WingBlank>
       </div>
     )
   }
 }
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => {
+  const userInfo = state.get('userInfo')
+  return {
+    username: userInfo.get('username'),
+    sex: userInfo.get('sex'),
+    entranceTime: userInfo.get('entranceTime'),
+    major: userInfo.get('major'),
+    hometown: userInfo.get('hometown'),
+    signature: userInfo.get('signature'),
+    deanAccount: state.getIn(['login', 'deanAccount']) ? state.getIn(['login', 'deanAccount']) : state.getIn(['register', 'deanAccount'])
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
     handleFromChange(key, value) {
       dispatch(actionCreators.changeForm(key, value))
+    },
+    getUserInfo(userId) {
+      dispatch(actionCreators.getUserInfo(userId))
+    },
+    updateUserInfo(deanAccount,username, entranceTime, major, hometown, signature) {
+      dispatch(
+        actionCreators.updateUserInfo(
+          deanAccount,
+          username,
+          entranceTime,
+          major,
+          hometown,
+          signature
+        )
+      )
     }
   }
 }

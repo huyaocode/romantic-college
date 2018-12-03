@@ -1,10 +1,19 @@
 import utility from 'utility'
 
-export function getRedictPath(infos) {
-  if(! infos.major){
-    return 'info'
+export function getRedictPath(page, infos) {
+  switch(page) {
+    case 'login':
+      if(infos.needFillInfo) {
+        return 'info'
+      } else {
+        return 'dashbord'
+      }
+    case 'register':
+      return 'info'
+    default:
+      return null;
   }
-  return null;
+  
 }
 
 export function md5encryption(psw){

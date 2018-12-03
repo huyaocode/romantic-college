@@ -17,7 +17,10 @@ const models = {
     //是否认证
     is_auth: { type: Boolean },
     //专业
-    major: { type: String }
+    major: { type: String },
+    entranceTime:  { type: String },
+    hometown: { type: String },
+    signature: { type: String }
   }
 }
 

@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Toast } from 'antd-mobile'
 import { md5encryption } from '../../../util.js'
 
+
 /**
  * 表单修改
  */
@@ -33,13 +34,14 @@ export const login = (deanAccout, ownPsw) => {
     axios.post('/user/login', { deanAccout, ownPsw }).then(res => {
       if (res.status === 200 && res.data.code === 0) {
         dispatch(loginSucc(res.data))
-        Toast.success('登陆成功')
+
+        Toast.success('登陆成功', 0.5)
       } else {
-        Toast.fail(res.data.msg)
+        Toast.fail(res.data.msg, 0.5)
       }
     })
     .catch(err => {
-      Toast.fail('服务端错误')
+      Toast.fail('服务端错误', 1)
     })
   }
 }

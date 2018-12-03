@@ -16,7 +16,7 @@ export default (state = defaultState, action) => {
     case acType.LOGIN_SUCC: //登陆回调
       return state.merge({
         isAuth: true,
-        redicrectTo: getRedictPath(action.payload)
+        redicrectTo: getRedictPath('login', action.payload)
       })
     default:
       return state
