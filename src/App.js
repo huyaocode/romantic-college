@@ -1,27 +1,26 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import store from './store'
 import AuthRouter from './component/authroute'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import UserInfo from './pages/UserInfo'
-
-function Boss () {
-  return <div>Boss</div>
-}
+import Dashboard from './pages/Dashboard'
 
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
         <BrowserRouter>
-          <div>
+          <div style={{height: '100%'}}>
             <AuthRouter></AuthRouter>
-            <Route path="/info" exact component={UserInfo} />
-            <Route path="/boss" exact component={Boss} />
-            <Route path="/login" exact component={Login} />
-            <Route path="/register" exact component={Register} />
+            <Switch>
+              <Route path="/info" exact component={UserInfo} />
+              <Route path="/login" exact component={Login} />
+              <Route path="/register" exact component={Register} />
+              <Route component={Dashboard}></Route>
+            </Switch>
           </div>
         </BrowserRouter>
       </Provider>

@@ -6,12 +6,12 @@ export function getRedictPath(page, infos) {
       if(infos.needFillInfo) {
         return 'info'
       } else {
-        return 'dashbord'
+        return '/msg'
       }
     case 'register':
       return 'info'
     default:
-      return null;
+      return '/msg';
   }
   
 }

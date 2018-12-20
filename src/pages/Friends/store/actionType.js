@@ -1,0 +1,1 @@
+export const GTE_FRIENDS_LIST = 'friends/GTE_FRIENDS_LIST'

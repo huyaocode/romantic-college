@@ -11,11 +11,11 @@ app.use(bodyParser.json())
 
 app.use('/user', userRouter)
 
-app.get('/', function(req, res) {
-  User.find({}, (err, doc) => {
-    return res.json(doc)
-  })
-})
+// app.get('/', function(req, res) {
+//   User.find({}, (err, doc) => {
+//     return res.json(doc)
+//   })
+// })
 
 app.listen(9093, function() {
   console.log('后台已经成功运行在9093端口')

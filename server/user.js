@@ -4,10 +4,24 @@ const model = require('./model')
 const User = model.getModel('user')
 
 const _filter = { user_paw: 0, __v: 0, _id: 0 }
-
+/**
+ * 获取异性用户列表
+ */
 Router.get('/list', function(req, res) {
-  User.find({}, function(err, doc) {
-    return res.json(doc)
+  const { userid } = req.cookies
+  if (!userid) {
+    return res.json({ code: 1 }) // 0 表示已经登陆
+  }
+  User.findOne({ _id: userid }, function(err, doc) {
+    if (err) {
+      return res.json({ code: 1, msg: '后端出错' })
+    }
+    if (doc) {
+      const sex = (doc.sex === 'boy' ? 'girl' : 'boy');
+      User.find({sex}, {..._filter, sex: 0}, function(err, doc) {
+        return res.json(doc)
+      })
+    }
   })
 })
 
